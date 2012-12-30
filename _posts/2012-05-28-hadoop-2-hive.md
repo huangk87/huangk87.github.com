@@ -4,7 +4,8 @@ title: hadoop与hive的映射
 ---
 
  {{ page.title }}
-28 May 2012 - GuangZhou
+================
+<p class="meta">28 May 2012 - GuangZhou</p>
 
 hadoop代码转向hive代码说到，很多MR任务可以由hive完成。这几天，作了一些简单的汇总：
 

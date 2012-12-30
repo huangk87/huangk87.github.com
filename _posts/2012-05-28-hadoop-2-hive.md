@@ -7,29 +7,12 @@ title: hadoop与hive的映射
 ================
 <p class="meta">28 May 2012 - GuangZhou</p>
 
-hadoop代码转向hive代码说到，很多MR任务可以由hive完成。这几天，作了一些简单的汇总：
+之前认为我们的部分数据需求，hive是解决不了的，只能用hadoop编码实现。前两周跟小马解决玩家升级时间需求，本来我想用hadoop编码，但小马都是用hive编码的，为了保持大家编码的一致性，于是再次学习hive语法，完成了这个需求。事后想了想，针对我们数据特点，我们所有的数据处理，其实都是可以用hive完成。
 
-文件切割（多输入多输出）
---------------------------------------
-需求：数据LOG包含多种信息，需要将不同的数据信息重定向到不同的文件。
-hadoop：MultipleInputs、multipleoutputs两个类主要负责多输入多输出的处理。
-hive：利用union all和Custom map/reduce scripts，可以对不同的输入进行不同的处理，然后合并结果；Multi Table/File Inserts、Dynamic-partition Insert这两个主要是对同个数据源（或者某个中间结果），根据条件重定向输出，特别是中间结果，可以减少很多MR Job。
-获取文件的输入路径。
---------------------------------------
-需求：数据LOG可能包含日志服务器和日期信息，每个文件包含的是不同服务器、不同日期的数据。这个时候只能通过文件名区分数据的服务器、日期。
-hadoop： ((FileSplit) reporter.getInputSplit()).getPath()
-hive：hive建表时已经指定数据存储路径，只能通过元数据库获取。但是直到0.8.0版本之前，hive都一直没有提供相应的函数和接口。hive0.8.0提供了INPUT__FILE__NAME、BLOCK__OFFSET__INSIDE__FILE两个虚拟列，可以获取文件名和文件位置。我非常喜欢hive这些改进。hadoop之所以能够广泛使用，是因为提供的底层接口，让用户自定义处理；hive虽然提高了编写脚本的效率，但是功能毕竟有限。这就类似一些高级语言也会提供一些底层语言的语法，以适合不同的场景应用。
-两表数据join
---------------------------------------
-需求：数据信息不可能只保存在一个数据文件/数据中，实际工作经常需要关联多张表，才能完整获取文件信息。
-hadoop： 分为map side join 和reduce side join两种。reduce side join的实现方式是在map阶段给数据源打标签，区分数据文件；然后在reduce阶段，获取来自多个文件的相同key的value， 然后对于同key，进行多个文件间的数据join。map side join是一种改进。如果关联的两个表，一个表非常大，而另一个表可以直接存放到内存中。这样，可以将可以放到内存的表直接复制到每个map，然后只需要扫描大表，关联数据即可。
-hive：LEFT、RIGHT、FULL JOIN是常见的两表数据关联。而判断表A中的KEY是否在表B中，则需要用到LEFT SEMI JOIN。
-获取配置文件
---------------------------------------
-需求：代码与配置文件是分离的，这样有变动的时候，只需要修改配置文件就能获得良好的扩展。
-hadoop：DistributedCache 是Map/Reduce框架提供的功能，能够缓存应用程序所需的文件 （包括文本，档案文件，jar文件等）。DistributedCache.addCacheFile是相应实现
-hive：add files  jars archives
-不同的数据不同的处理
---------------------------------------
-hadoop：不同的输入文件可由不同的map函数处理MultipleInputs.addInputPath(JobConf conf, InputPath, TextInputFormat.class, Mapper.class) 
-hive：SELECT TRANSFROM（输入字段) USING '处理脚本'  AS（输出字段） WHERE 根据条件筛选相应的数据   UNION ALL（归并不同处理脚本输出的数据）
+先说明一下玩家升级时间需求，策划想了解新手玩家每个等级的在线时间和升级时间。而后台数据有1）玩家每次登录、退出记录，有玩家角色ID、登录时间戳、退出时间戳、总在线时长字段、登录等级、退出等级等字段；2）玩家升级记录，有玩家角色ID、升级时间戳等字段。
+
+以前在单机下处理这个数据需求的时候，比较简单。1）先抽取玩家的登录退出、升级记录，然后混合所有记录，标记每行记录的玩家行为（登录、升级、退出）；2）然后利用玩家角色ID、时间戳进行混合数据排序，3）因为数据以及排序，所以可以放心迭代解析每行记录，利用时间戳相加减，计算出每个玩家每个等级的在线时长。
+
+在hive下处理这个需求其实过程思路一样。1）混合数据记录。通过hive自定义脚本MAP (fields) USING (fields) AS (mapfields)，再结合union，就可以混合不同数据表的记录了；2）排序过程，利用hive的SORT BY和DISTRIBUTE BY。因为升级时间计算是否正确，相同玩家角色ID的记录必须在同一个reduce端。之前一直认为SORT BY和DISTRIBUTE BY作用微乎其微，但通过这个升级数据需求，悟到SORT BY和DISTRIBUTE BY控制hadoop 数据从map端转向reduce端的排序、分拆过程，对我们一些特定数据需求是非常方便的。再深层次，我们部分数据需求的hadoop代码其实可以用hive实现。3）迭代解析记录。也是利用hive自定义脚本实现。
+
+本以为自己了解大部分hive语法，但一些语法的深层次应用和过程机制，我还只是略知皮毛。

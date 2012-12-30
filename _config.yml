@@ -1,4 +1,6 @@
-markdown: kramdown
+markdown: rdiscount
+#pygments: true
+#markdown: kramdown
 paginate: 4
 safe: false 
 img_url: http://huangk87.github.com/images

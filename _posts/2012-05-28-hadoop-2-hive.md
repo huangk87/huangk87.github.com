@@ -11,9 +11,9 @@ hadoop代码转向hive代码说到，很多MR任务可以由hive完成。这几�
 文件切割（多输入多输出）
 --------------------------------------
 需求：数据LOG包含多种信息，需要将不同的数据信息重定向到不同的文件。
-hadoop：MultipleInputs、multipleoutputs两个类主要负责多输入多输出的处理
+hadoop：MultipleInputs、multipleoutputs两个类主要负责多输入多输出的处理。
 hive：利用union all和Custom map/reduce scripts，可以对不同的输入进行不同的处理，然后合并结果；Multi Table/File Inserts、Dynamic-partition Insert这两个主要是对同个数据源（或者某个中间结果），根据条件重定向输出，特别是中间结果，可以减少很多MR Job。
-获取文件的输入路径
+获取文件的输入路径。
 --------------------------------------
 需求：数据LOG可能包含日志服务器和日期信息，每个文件包含的是不同服务器、不同日期的数据。这个时候只能通过文件名区分数据的服务器、日期。
 hadoop： ((FileSplit) reporter.getInputSplit()).getPath()

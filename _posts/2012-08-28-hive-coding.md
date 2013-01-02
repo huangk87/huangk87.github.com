@@ -7,12 +7,12 @@ title: Hive编码规范
 ================
 <p class="meta">28 Aug 2012 - GuangZhou</p>
 
-1、关键字（内置函数最好大写，便于udf区分；我们之前历史原因，没有大写），如，
-     `SELECT TRANSFORM(urs, dt)
-     USING 'python consume_loss_mall.py'
-     AS (urs string, calcDate string)
-     FROM src_wh_buyitem_day
-     WHERE dt >= ${begindt} AND dt <= ${enddt}`
+1、关键字（内置函数最好大写，便于udf区分；我们之前历史原因，没有大写），如:
+    `SELECT TRANSFORM(urs, dt)`
+    `USING 'python consume_loss_mall.py'`
+    `AS (urs string, calcDate string)`
+    `FROM src_wh_buyitem_day`
+    `WHERE dt >= ${begindt} AND dt <= ${enddt}`
 2、SELECT/FROM/WHERE/JOIN/ORDER BY/GROUP BY/LIMIT等子句最好另其一行写，如上所示  
 3、＝、<=、>=等前后加上一个空格  
 4、字符常量使用单引号,避免使用双引号  

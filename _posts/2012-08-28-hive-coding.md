@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Hive编码规范
 ---
 

@@ -5,7 +5,7 @@ title: 游戏版本简报
 
  {{ page.title }}
 ================
-<p class="meta">25 May 2013 - GuangZhou</p>
+<p class="meta">26 May 2013 - GuangZhou</p>
 
 
 最近半年一直跟进版本简报的事情，想写些东西记录游戏版本简报的过程和感受。

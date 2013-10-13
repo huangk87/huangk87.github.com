@@ -1,0 +1,40 @@
+---
+layout: default
+title: python小知识
+---
+
+ {{ page.title }}
+================
+<p class="meta">15 Aug 2012 - GuangZhou</p>
+
+   python是“胶水语言”，不是很懂计算机的人也很容易利用python编写一些小脚本和小工具，对于偏数据分析方向的人来说是个不错的利器。
+
+模块安装    
+-----------------------  
+1、第三方模块安装。这个过程只要几个简单的步骤即可，解压安装包文件后cd到安装包的目录，直接运行python setup.py install命令，即可以完成。  
+2、非root权限安装模块。有时候，处于安全权限等方面的原因，系统管理员不允许安装某些模块。但我们还是可以打造最适合我们的工作环境。  
+    mkdir -p ${HOME}/opt/lib/python/site-packages/  
+    echo "PYTHONPATH=\$PYTHONPATH:\${HOME}/opt/lib/python/site-packages/" >> ~/.bashrc  
+    echo "export PYTHONPATH" >> ~/.bashrc  
+    echo "export PATH=\$PATH:\${HOME}/opt/bin" >> ~/.bashrc  
+    source ~/.bashrc  
+    python setup.py install --prefix=${HOME}/opt  
+  
+
+数据读写
+-----------------------  
+1、xlrd 读excel03格式数据  
+2、xlwt 写exeel03格式数据  
+3、xlutils 在xlrd.Book和xlwt.Workbook之间建立了一个管道  
+4、openpyxl 读写excel07格式数据  
+5、pythonwin windows环境下读写excel格式数据。但个人一般不使用，更喜欢在linux服务器下自动化运行相关脚本，提高效率和方便移植  
+  
+
+使用例子  
+-----------------------  
+1、列表解析。 student_score = ['%s is %s;' % (name, score) for name, score in student_score]  
+2、对字典value排序，然后返回对应的key。 sorted(d.iteritems(), key=itemgetter(1), reverse=True)  
+3、删除当前目录下的所有子目录。  
+    for file in os.listdir(os.getcwd()):  
+        if os.path.isdir(file):  
+            os.rmdir(dir)

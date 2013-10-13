@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 数据处理通用事项
 ---
 

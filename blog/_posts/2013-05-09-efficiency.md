@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 效率提升的个人想法
 ---
 

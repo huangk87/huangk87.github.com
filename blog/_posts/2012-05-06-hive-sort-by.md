@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: hive的sort by和distribute by 
 ---
 

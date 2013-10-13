@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 游戏登录数据分析
 ---
 

@@ -1,0 +1,21 @@
+---
+layout: default
+title: Hive进阶 
+---
+
+ {{ page.title }}
+================
+<p class="meta">15 Aug 2012 - GuangZhou</p>
+
+根据网上搜集的资料，结合自己写hive脚本的一些实践，写了[hive进阶](http://www.slideshare.net/haiwang/hive-12539968)。主要有四点。
+  
+1）特殊功能的函数。例如cast进行字段类型转化；case条件函数对某些条件记录进行转换
+  
+  
+2）特殊的语句。例如多表/文件插入；引入外部资源；map join等
+  
+  
+3）HQL语句优化。
+  
+  
+4）Hive参数优化。

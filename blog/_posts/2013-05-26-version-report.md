@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 游戏版本简报
 ---
 

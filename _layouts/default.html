@@ -1,41 +1,7 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="CN" lang="zh-CN">
-<head>
-   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-   <title>{{ page.title }}</title>
-   <meta name="author" content="huangk87" />
-   <link href="http://feeds.feedburner.com/huangk87" rel="alternate" title="huangk87" type="application/atom+xml" />
-   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
-   <!-- syntax highlighting CSS -->
-   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+---
+layout: common
+---
+<div class="title">{{ page.title }}</div>
+{% include links.html %}
 
-   <!-- Homepage CSS -->
-   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-
-   <!-- Typekit -->
-   <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
-   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-</head>
-<body>
-
-<!-- ClickTale Top part -->
-<script type="text/javascript">
-var WRInitTime=(new Date()).getTime();
-</script>
-<!-- ClickTale end of Top part -->
-
-<div class="site">
-  <div class="title">
-    <a href="/">huangk87</a>
-    <a class="extra" href="/">home</a>
-  </div>
-  
-  {{ content }}
-  
-  <div class="footer">
-      &copy; huangk87 2012 with help from <a href="https://github.com/mojombo/tpw">mojombo</a>
-  </div>
-</div>
-
-</body>
-</html>
+{{ content }}

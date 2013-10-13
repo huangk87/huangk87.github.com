@@ -1,4 +1,1 @@
-huangk87.github.com
-===================
-
-myblog
+This is the homepage of Kai Huang.

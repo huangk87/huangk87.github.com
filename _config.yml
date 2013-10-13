@@ -1,62 +1,13 @@
-markdown: rdiscount
-#pygments: true
-#markdown: kramdown
-paginate: 4
-safe: false 
-img_url: http://huangk87.github.com/images
-code_dir: /code
-permalink: /:year/:month/:title 
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-auto: true
+permalink: /:categories/:year/:month/:title
+
 pygments: true
 
+markdown: rdiscount
+rdiscount:
+  extensions:
+    - smart
+    - generate_toc
 
-title : huangk87
-tagline: Site Tagline
-author :
-  name : huangk87
-  email : weifenghk2008@gmail.com
-  github : huangk87
-  #twitter : huangk87
-  #feedburner : huangk87
-production_url : http://huangk87.github.com
 
-JB :
-  version : 0.2.13
-  tags_list:
-      provider: 
-  pages_list:
-      provider: custom
-  BASE_PATH : false
-  ASSET_PATH : false
-  archive_path: /archive.html
-  categories_path : /categories.html
-  tags_path : /tags.html
-  sitemap_path: /sitemap.txt
-  RSS_path: /atom.xml
 
-  comments :
-    provider : disqus
-    disqus :
-      short_name : huangk87
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
-    facebook :
-      appid : 123
-      num_posts: 5
-      width: 580
-      colorscheme: light
-
-  analytics :
-    provider : google 
-    google : 
-        tracking_id : ''
-    getclicky :
-      site_id : 
-    mixpanel :
-        token : '_MIXPANEL_TOKEN_'
-
-  sharing :
-    provider : false
+ 

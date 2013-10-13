@@ -1,7 +1,7 @@
 ---
 layout: common
 ---
-<div class="title">Kai Huang</div>
+<div class="title">Taiyun Wei</div>
 {% include links.html %}
 
 <div id="blogpost">
@@ -44,3 +44,20 @@ layout: common
     {% assign show_comments = false %}
   {% endif %}
 {% endfor %}
+
+{% if show_comments %}
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  {% if site.server %}
+  var disqus_developer = 1;
+  {% endif %}
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.type = 'text/javascript';
+    dsq.src = 'http://taiyun.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] ||
+     document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+{% endif %}
